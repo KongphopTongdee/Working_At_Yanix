@@ -54,6 +54,27 @@
 
 # # print(center)
 
-x = pow(7,2)
+# x = pow(7,2)
 
-print(x)
+# print(x)
+
+# y = 36.885
+# y = int(y)
+# print(y)
+
+import numpy as np
+import math
+
+x1,y1 = 5,1
+
+x2,y2 = 1,4
+
+print(x1,y1,x2,y2)
+    
+angle = int(abs((math.atan((y2-y1)/(x2-x1)))*(180/3.14)))
+
+print(angle)
+
+# angle2 = ((y2-y1)/(x2-x1))
+
+# print(angle2)

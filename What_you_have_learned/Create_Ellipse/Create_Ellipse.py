@@ -78,7 +78,9 @@ def create_ellipse(event,x,y,flags,param):
         center_coordinates = (centorx,centory)
         
         # Calculate angle
-        angle = math.atan(int((position_major_end[1]-position_major_start[1])/(position_major_end[0]-position_major_start[0])))
+        # angle = int(abs((math.atan((position_major_end[1]-position_major_start[1])/(position_major_end[0]-position_major_start[0])))*(180/3.14)))
+        angle = int((math.atan((position_major_end[1]-position_major_start[1])/(position_major_end[0]-position_major_start[0])))*(180/3.14))
+        print(angle)
         
         # Calculate axesLength
         major_axes = int(math.sqrt((pow(position_major_start[0]-position_major_end[0],2))+(pow(position_major_start[1]-position_major_end[1],2))))
@@ -101,8 +103,16 @@ while(1):
     cv2.imshow('image_test',picture_for_creating_ellipse_after_resize)
     k = cv2.waitKey(1) & 0xFF
     if k == ord('m'):
+        if(mode_line_ellipse == True):
+            print("mode Create ellipse")
+        else:
+            print("mode Create Line")
         mode_line_ellipse = not mode_line_ellipse
     elif k == ord('n'):
+        if(mode_major_minor == True):
+            print("mode miner position")
+        else:
+            print("mode major position")
         mode_major_minor = not mode_major_minor
     elif k == 27:
         break

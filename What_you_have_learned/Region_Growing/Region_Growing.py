@@ -58,6 +58,10 @@ while(1):
     k = cv2.waitKey(1) & 0xFF
     
     if k == ord('m'):
+        if(mode_rectangle_position == True):
+            print("mode position start,end / creating rectangle")
+        else:
+            print("mode position seed / region growing")
         mode_rectangle_position = not mode_rectangle_position
     
     elif k == 27:
