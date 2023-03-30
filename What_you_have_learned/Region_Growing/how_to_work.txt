@@ -1,0 +1,6 @@
+region growing = การเลือก seed หรือ position ที่จะทำการเป็น base เพื่อเปรียบเทียบกับ position อื่นโดยเราต้องกำหนด threshold ขึ้นมาเมื่อนำค่า base position ไปเทียบกับ
+threshold แล้วเกิดค่าตาม conditon ที่ตั้งไว้ให้แดงค่านั้นบนภาพออกมา
+
+หมายเหตุ = ไม่ควรเลือกค่าสีที่เป็นค่ากลาง
+
+สิ่งที่เราควรทำในที่นี้คือการที่เราสร้าง function สำหรับ detect mouse เพื่อ select position สำหรับ segmented region ออกมา
