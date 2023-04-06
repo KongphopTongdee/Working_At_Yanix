@@ -27,7 +27,7 @@ import math
 
 # Import Picture     
 picture_for_creating_ellipse = cv2.imread('wallpaper_neon_valley.jpg')
-picture_for_creating_ellipse_after_resize = cv2.resize(picture_for_creating_ellipse, (1280,720))
+picture_for_creating_ellipse_after_resize = cv2.resize(picture_for_creating_ellipse, (600,480))
 
 # Create function for mouse tracking
 ix, iy = -1,-1 # the valiable to print out from def function to checking output
