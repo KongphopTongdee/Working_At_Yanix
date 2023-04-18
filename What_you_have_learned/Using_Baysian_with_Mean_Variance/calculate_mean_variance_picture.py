@@ -88,9 +88,16 @@ def calculate_mean_variance(event,x,y,flags,param):
                     storing_color_value_list_all.append(storing_color_value_list_row)
                     storing_color_value_list_row = []
                 # print(storing_color_value_list_all)   
-                # write the data
+                # write the data of color value
                 writer.writerows(storing_color_value_list_all)  
                 storing_color_value_list_all = []         
+                
+                # write the data of mean and variance of color value
+                mean_info = ["Mean : " + str(mean_pixel)]
+                variance_info = ["Variance : " + str(variance_pixel)]
+                writer.writerow(mean_info) 
+                writer.writerow(variance_info) 
+                
             print("Finish save data")
 
 # Run code 
