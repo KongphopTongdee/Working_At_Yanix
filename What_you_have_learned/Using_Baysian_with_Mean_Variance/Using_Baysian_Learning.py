@@ -2,6 +2,7 @@
 
 import cv2
 import csv
+import numpy as np
 
 def convert_str_into_float(input_list):
     Ans = []
@@ -16,23 +17,31 @@ def convert_str_into_float(input_list):
     
     return Ans
 
+# value of pixels for using bayesian
 picture_for_using_bayesian = []
 mean_of_picture = []
 variance_of_picture = []
 
+# calculate probability
+probability_more_than_means = 0.0
+probability_less_than_means = 0.0
+n_all_pixels = 0
+
+# preparing data
 with open("color_value_rectangle_area.csv", 'r') as file:
     csvreader = csv.reader(file)
     for row in csvreader:
         picture_for_using_bayesian.append(row)
         
+# store the mean and variance and pixel of picture
 mean_of_picture.append(picture_for_using_bayesian[len(picture_for_using_bayesian)-2])
 variance_of_picture.append(picture_for_using_bayesian[len(picture_for_using_bayesian)-1])
 picture_for_using_bayesian.pop(len(picture_for_using_bayesian)-1)
 picture_for_using_bayesian.pop(len(picture_for_using_bayesian)-1)
 
-# print(picture_for_using_bayesian)
-print(mean_of_picture)
+# convert and scale the decimal into 4 decimal
 mean_of_picture = convert_str_into_float(mean_of_picture)
-print(mean_of_picture)
-# print(variance_of_picture)
+variance_of_picture = convert_str_into_float(variance_of_picture)
+mean_of_picture = format(mean_of_picture, '.4f')
+variance_of_picture = format(variance_of_picture, '.4f')
 

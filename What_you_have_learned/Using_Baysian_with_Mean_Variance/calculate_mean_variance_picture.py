@@ -35,7 +35,8 @@ storing_color_value_list_all = []
 
 # rectangle param
 color_of_rectangle = (0,0,255)
-thickness = 2
+thickness = 1
+# thickness = 2
 
 # mode selection
 mode_selection = 0
@@ -81,8 +82,8 @@ def calculate_mean_variance(event,x,y,flags,param):
             with open('color_value_rectangle_area.csv', 'w', encoding='UTF8', newline='') as f:
                 writer = csv.writer(f)
 
-                for height_of_picture in range(calculate_seed_bottom_left[1],calculate_seed_top_right[1]):
-                    for width_of_picture in range(calculate_seed_bottom_left[0],calculate_seed_top_right[0]):
+                for height_of_picture in range(calculate_seed_bottom_left[1]+1,calculate_seed_top_right[1]):
+                    for width_of_picture in range(calculate_seed_bottom_left[0]+1,calculate_seed_top_right[0]):
                         storing_color_value_list_row.append(picture_for_calculate_mean_variance_grayscale[height_of_picture][width_of_picture])
                     # print(storing_color_value_list_row)
                     storing_color_value_list_all.append(storing_color_value_list_row)

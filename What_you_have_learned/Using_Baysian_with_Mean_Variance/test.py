@@ -1,3 +1,7 @@
+import csv
+import numpy as np
+import cv2
+
 # test = True
 
 # def change_boolen():
@@ -106,8 +110,37 @@
 # data = pd.read_csv("countries.csv")
 # print(data)
 
+picture_for_using_bayesian = []
 
+with open("color_value_rectangle_area.csv", 'r') as file:
+    csvreader = csv.reader(file)
+    for row in csvreader:
+        picture_for_using_bayesian.append(row)
+        
+# Test
 
+img = cv2.imread('Lenna.png',0)
+
+print(img)
+print(type(img))
+
+# cv2.imshow('sample image',img)
+
+# cv2.waitKey(0) # waits until a key is pressed
+# cv2.destroyAllWindows() # destroys the window showing image
+
+print(picture_for_using_bayesian)
+print(type(picture_for_using_bayesian))
+
+test = np.array(picture_for_using_bayesian)
+
+print(test)
+
+# # Attempt to display using cv2 (doesn't work)
+# cv2.namedWindow("Picture_of_using_baysian")
+# cv2.imshow("Picture_of_using_baysian", picture_for_using_bayesian)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
 
 
 
