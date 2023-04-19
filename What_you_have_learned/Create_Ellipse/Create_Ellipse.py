@@ -26,7 +26,7 @@ import math
    
 
 # Import Picture     
-picture_for_creating_ellipse = cv2.imread('wallpaper_neon_valley.jpg')
+picture_for_creating_ellipse = cv2.imread('Lenna.png',0)
 picture_for_creating_ellipse_after_resize = cv2.resize(picture_for_creating_ellipse, (600,480))
 
 # Create function for mouse tracking
