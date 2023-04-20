@@ -1,5 +1,10 @@
 # From website (write csv file) : https://www.pythontutorial.net/python-basics/python-write-csv-file/
 # From website (write csv file) : https://greedisgoods.com/%E0%B8%90%E0%B8%B2%E0%B8%99%E0%B8%99%E0%B8%B4%E0%B8%A2%E0%B8%A1-%E0%B8%84%E0%B8%B7%E0%B8%AD-mode/
+# From website (write csv file) : https://www.educba.com/mean-formula/
+# From website (write csv file) : https://www.educba.com/median-formula/
+# From website (write csv file) : https://www.educba.com/mode-formula/
+# From website (write csv file) : https://www.educba.com/sample-standard-deviation-formula/
+# From website (write csv file) : https://www.educba.com/variance-formula/
 
 import cv2 
 import csv
