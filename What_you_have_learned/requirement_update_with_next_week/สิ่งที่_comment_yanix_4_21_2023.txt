@@ -1,0 +1,16 @@
+homogenuos area
+จะไม่ใช้ค่า pixel ของสีในบริเวณ 4 เหลี่ยม
+ดูแค่ค่า variance ใช้ใน kernel
+ค่า min ค่า max ในบริเวณ kernel 
+mean = สีอะไร
+variance = ถ้าเป็นสีเดียวกันค่าการกระจายตัวจะน้อยเนื่องจากใกล้ค่า mean / อธิบายความเรียบของสีที่เหมือนกัน / represent ความเรียบหรือคุณลักษณะของ homogenuos
+swatch คือ area ใน kernel สี่เหลี่ยม
+poperty การ train bayesian
+1. การดู mean ของว่าเป็นสีอะไร
+2. การดู variance ของรูปภาพว่าเป็นขอบหรือรูปชิ้นเดียวกัน
+ลองใช้สีของรูปรุ่นพี่
+bayesian คือการคูณกันของ variance ที่กำหนดให้ในสี(เราสามารถไปดูได้จากที่อาจารย์)
+
+requirement next week
+1. ลอง train 10 swatch ในหมวก (เลือกบริเวณที่ไม่ใช่ homogenuos area = mean ของ variance, กับ homogenenous area = mean ของ variance) ด้วย bayesian = อยากเห็นค่า mean ของ 10 swatch(สี), ทดลองใน 3 channel(ลองแบบรวมสี กับไม่รวมสี)
+2. สิ่งที่ได้จะเป็นสี กับ ความเรียบของ model
