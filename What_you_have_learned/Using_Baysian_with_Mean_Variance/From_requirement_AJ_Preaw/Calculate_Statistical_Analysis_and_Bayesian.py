@@ -103,7 +103,6 @@ def calculate_mean_variance(event,x,y,flags,param):
         print('save finish idx : ',count_idx_store_swatch)
         print(store_swatch)
 
-
 # Run code 
 
 cv2.namedWindow("Calculate_Statistical_Analysis")
