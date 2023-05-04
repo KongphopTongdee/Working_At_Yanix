@@ -71,6 +71,7 @@ def calculate_mean_variance(event,x,y,flags,param):
         print("position_bottom_right " +"("+ str(calculate_seed_top_right[0]) +","+ str(calculate_seed_top_right[1])+")")
         print("position_top_left " +"("+ str(calculate_seed_bottom_left[0]) +","+ str(calculate_seed_bottom_left[1])+")")
 
+    ########################################## ทำงานร่วมกันไม่ได้เนื่องจากยังไม่รู้ mean ทั้งหมดก่อน ####################################################
     elif (event == cv2.EVENT_RBUTTONDOWN):
         cv2.rectangle(img_convert_YCRCB, calculate_seed_bottom_left, calculate_seed_top_right, color_of_rectangle, thickness)
         # Calculate Mean each Y,Cr and Cb

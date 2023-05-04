@@ -93,36 +93,74 @@ position_of_end = (547,750)
 
 for row in range(position_of_start[1], position_of_end[1]):       # y axis
     for coloumn in range(position_of_start[0], position_of_end[0]):       # x axis
-        if calculate_mean_of_postion(row,coloumn,Red,Green,Blue) < threshold_seed_position :
+        if (calculate_mean_of_postion(row,coloumn,Red,Green,Blue) < threshold_seed_position) :
             Red[row][coloumn] = 0
             Green[row][coloumn] = 0
             Blue[row][coloumn] = 0
 
 # step 2. ทำการหา interestsample,notinterestsample จากการนับเฉพาะสีขาวจาก region growing
 # Valiable
-set_leaf = 0
-set_notleaf = 0
+interestpixels = 0
+not_interestpixels = 0
 
 for row in range(position_of_start[1], position_of_end[1]):       # y axis
     for coloumn in range(position_of_start[0], position_of_end[0]):       # x axis
-        if calculate_mean_of_postion(row,coloumn,Red,Green,Blue) == 0 :
-            set_leaf += 1
+        if (calculate_mean_of_postion(row,coloumn,Red,Green,Blue) == 0) :
+            interestpixels += 1
         else :
-            set_notleaf += 1
+            not_interestpixels += 1
 
 # step 3. ทำการหา prob_of_score_and_class, prob_of_score_and_notclass โดยการคำนวน equation ที่ผนวกค่า current position, mean, standard deviation
+# Valiable
+all_mean_leaf = (0,0,0)
+mean_R_leaf = 0
+mean_G_leaf = 0
+mean_B_leaf = 0
+all_std_leaf = (0,0,0)
+std_R_leaf = 0
+std_G_leaf = 0
+std_B_leaf = 0
+all_mean_notleaf = (0,0,0)
+mean_R_notleaf = 0
+mean_G_notleaf = 0
+mean_B_notleaf = 0
+all_std_notleaf = (0,0,0)
+std_R_notleaf = 0
+std_G_notleaf = 0
+std_B_notleaf = 0
+
+for row in range(position_of_start[1], position_of_end[1]):       # y axis
+    for coloumn in range(position_of_start[0], position_of_end[0]):       # x axis
+        if (calculate_mean_of_postion(row,coloumn,Red,Green,Blue) == 0):
+            mean_R_leaf += original_Red[row][coloumn]
+            mean_G_leaf += original_Green[row][coloumn]
+            mean_B_leaf += original_Blue[row][coloumn]
+            std_R_leaf += pow((original_Red[row][coloumn] - mean_R_leaf),2)
+        else :
+            mean_R_notleaf += original_Red[row][coloumn]
+            mean_G_notleaf += original_Green[row][coloumn]
+            mean_B_notleaf += original_Blue[row][coloumn]
+
+mean_R_leaf = (mean_R_leaf/interestpixels)
+mean_G_leaf = (mean_G_leaf/interestpixels)
+mean_B_leaf = (mean_B_leaf/interestpixels)
+all_mean_leaf = (mean_R_leaf, mean_G_leaf, mean_B_leaf)
+mean_R_notleaf = (mean_R_notleaf/not_interestpixels)
+mean_G_notleaf = (mean_G_notleaf/not_interestpixels)
+mean_B_notleaf = (mean_B_notleaf/not_interestpixels)
+all_mean_notleaf = (mean_R_notleaf, mean_G_notleaf, mean_B_notleaf)
 
 
-
-
-
-
-
-
-
-
-
-
+for row in range(position_of_start[1], position_of_end[1]):       # y axis
+    for coloumn in range(position_of_start[0], position_of_end[0]):       # x axis
+        if (calculate_mean_of_postion(row,coloumn,Red,Green,Blue) == 0):
+            std_R_leaf += pow((original_Red[row][coloumn] - mean_R_leaf),2)
+            std_G_leaf += pow((original_Red[row][coloumn] - mean_R_leaf),2)
+            std_B_leaf += pow((original_Red[row][coloumn] - mean_R_leaf),2)
+        else :
+            std_R_notleaf += pow((original_Red[row][coloumn] - mean_R_leaf),2)
+            std_G_notleaf += pow((original_Red[row][coloumn] - mean_R_leaf),2)
+            std_B_notleaf += pow((original_Red[row][coloumn] - mean_R_leaf),2)
 
 
 
