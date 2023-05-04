@@ -1,0 +1,24 @@
+bayesian output
+requirement 
+1. select example shape region ขอบ with 3 picture predicted the 4 picture
+2. get in the bayesian model by calculate from equation
+3. output if we select the apple then we will show apple (we will get metrix)
+concept of research : need to build the tools that easy for the user and developer
+proof of concept : need to solve only for equation don’t need to do more architecture
+
+singular value from the oval is expand from metrix 
+oval is in the jacobian 
+similar to covariance matrix
+
+concept PCA is to rotate of oval to independent
+
+from onboarding you need to focus on bayesian and picture scale
+
+on working of yannix = you need to develop your own program it easy to understand and use it.
+
+harnonical test = test with ออบเบืยด (ideal test) after that you need to climb up to hard test. 
+
+how to solve this problem : change this to float channels from [0,255] 
+
+optional - you can design what to test and what to build (you need to design the ui by constrast with mathlab)
+first design : create class

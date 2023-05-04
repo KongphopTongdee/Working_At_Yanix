@@ -18,7 +18,7 @@ def cal_prob_of_score_and_class(current_pixel, mean_of_class, std_of_class):
     # P(S|C) = (1/(standard_deviation*squareroot(2*pi)))(exp((-1/2)((current_pixel-mean)^2/standard_deviation)))
     Ans = 0.0
     
-    Ans = (1/(std_of_class*math.sqrt(2*math.pi)))*(math.exp((-1/2)*((math.pow((current_pixel-mean_of_class),2))/std_of_class)))
+    Ans = (1/(std_of_class*math.sqrt(2*math.pi)))*(math.exp((-1/2)*(math.pow((current_pixel-mean_of_class),2)/math.pow((std_of_class),2))))
     
     return Ans
 
@@ -50,9 +50,9 @@ img_convert_YCRCB = cv2.cvtColor(img_Leaf_straight_line, cv2.COLOR_BGR2YCR_CB)
 img_convert_RGB = cv2.cvtColor(img_Leaf_straight_line, cv2.COLOR_BGR2RGB)
 Y,Cr,Cb = cv2.split(img_convert_YCRCB)
 
-# cv2.rectangle(img_Leaf_straight_line, (445,470), (712,23), (0,0,255), 2)
+# cv2.rectangle(img_Leaf_straight_line, (445,470), (712,23), (0,0,255), 1)
 # show_img(img_Leaf_straight_line)
-# cv2.rectangle(img_Leaf_tilted, (445,470), (712,23), (0,0,255), 2)
+# cv2.rectangle(img_Leaf_tilted, (445,470), (712,23), (0,0,255), 1)
 # show_img(img_Leaf_tilted)
 
 # Step of working
