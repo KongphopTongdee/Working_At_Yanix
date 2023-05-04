@@ -93,42 +93,72 @@ import numpy as np
 # print(test)
 # print(showtest)
 
+# class Person:
+#   def __init__(self, name, age):
+#     self.name = name
+#     self.age = age
+
+# p1 = Person("John", 36)
+
+# print(p1.name)
+# print(p1.age)
+
+
+# # Illustration of creating a class
+# # in Python with input from the user
+# class Student:
+# 	'A student class'
+# 	stuCount = 0
+
+# 	# initialization or constructor method of
+# 	def __init__(self):
+		
+# 		# class Student
+# 		self.name = input('enter student name:')
+# 		self.rollno = input('enter student rollno:')
+# 		Student.stuCount += 1
+
+# 	# displayStudent method of class Student
+# 	def displayStudent(self):
+# 		print("Name:", self.name, "Rollno:", self.rollno)
+
+
+# stu1 = Student()
+# stu2 = Student()
+# stu3 = Student()
+# stu1.displayStudent()
+# stu2.displayStudent()
+# stu3.displayStudent()
+# print('total no. of students:', Student.stuCount)
+
+# std_R_leaf = math.sqrt(81/9)
+
+# print(std_R_leaf)
+
 class Person:
-  def __init__(self, name, age):
-    self.name = name
-    self.age = age
+    def __init__(self):
+        self.name = ""
+        self.age = 0
+    def update_name(self, name):
+        self.name = name
+    def update_age(self, age):
+        self.age = age
+    def get_name(self):
+        return self.name
+    def get_age(self):
+        return self.age
 
-p1 = Person("John", 36)
 
+p1 = Person()
+
+# same meaning but different code
 print(p1.name)
 print(p1.age)
+print(p1.get_name())
+print(p1.get_age())
 
+p1.update_name("Kongphop")
+p1.update_age(21)
 
-# Illustration of creating a class
-# in Python with input from the user
-class Student:
-	'A student class'
-	stuCount = 0
-
-	# initialization or constructor method of
-	def __init__(self):
-		
-		# class Student
-		self.name = input('enter student name:')
-		self.rollno = input('enter student rollno:')
-		Student.stuCount += 1
-
-	# displayStudent method of class Student
-	def displayStudent(self):
-		print("Name:", self.name, "Rollno:", self.rollno)
-
-
-stu1 = Student()
-stu2 = Student()
-stu3 = Student()
-stu1.displayStudent()
-stu2.displayStudent()
-stu3.displayStudent()
-print('total no. of students:', Student.stuCount)
-
-
+print(p1.get_name())
+print(p1.get_age())
