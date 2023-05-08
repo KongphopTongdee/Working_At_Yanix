@@ -267,16 +267,16 @@ for row in range(position_of_start[1], position_of_end[1]):       # y axis
             prob_scoreG_given_not_classleaf += cal_prob_of_score_and_class(original_Green, row, coloumn, StoreNotROIleaf.mean_value_G, StoreNotROIleaf.std_value_G)
             prob_scoreB_given_not_classleaf += cal_prob_of_score_and_class(original_Green, row, coloumn, StoreNotROIleaf.mean_value_B, StoreNotROIleaf.std_value_B)
  
-print(prob_scoreR_given_classleaf)
-print(prob_scoreG_given_classleaf)
-print(prob_scoreB_given_classleaf)
+#print(prob_scoreR_given_classleaf)
+#print(prob_scoreG_given_classleaf)
+#print(prob_scoreB_given_classleaf)
        
 Bayes_prob_classleaf_given_scoreR = cal_prob_roi(StoreROIleaf.get_num_of_pixels(), StoreNotROIleaf.get_num_of_pixels(), prob_scoreR_given_classleaf, prob_scoreR_given_not_classleaf)
 Bayes_prob_classleaf_given_scoreG = cal_prob_roi(StoreROIleaf.get_num_of_pixels(), StoreNotROIleaf.get_num_of_pixels(), prob_scoreG_given_classleaf, prob_scoreG_given_not_classleaf)
 Bayes_prob_classleaf_given_scoreB = cal_prob_roi(StoreROIleaf.get_num_of_pixels(), StoreNotROIleaf.get_num_of_pixels(), prob_scoreB_given_classleaf, prob_scoreB_given_not_classleaf)
 all_bayes_prob_classleaf_given_scoreRGB = (Bayes_prob_classleaf_given_scoreR, Bayes_prob_classleaf_given_scoreG, Bayes_prob_classleaf_given_scoreB)
 StoreROIleaf.update_plus_Bayesian(all_bayes_prob_classleaf_given_scoreRGB)
-print(StoreROIleaf.get_plus_Bayesian_value())
+#print(StoreROIleaf.get_plus_Bayesian_value())
 
 # ในขั้นตอนนี้เราจะทำการคำนวน prob scoreRGB given class leaf ด้วยการ x(คูณ) กันทั้งหมดบนพิกัด i,j ก่อนแล้วค่อยนำมาคำนวนตัว bayesian (เนื่องจากพอนำค่ามาคูณกันจะทำให้ค่าเข้าใกล้ 0 จนไม่สามารถคำนวน bayesian ได้เลย)
 
@@ -306,3 +306,8 @@ print(StoreROIleaf.get_plus_Bayesian_value())
 # StoreROIleaf.update_times_Bayesian(all_bayes_prob_classleaf_given_scoreRGB)
 # print(StoreROIleaf.get_times_Bayesian_value())
 
+print(StoreROIleaf.get_num_of_pixels())
+print(StoreROIleaf.get_mean_value())
+print(StoreROIleaf.get_std_value())
+print(StoreROIleaf.get_plus_Bayesian_value())
+print(StoreNotROIleaf.get_num_of_pixels())
