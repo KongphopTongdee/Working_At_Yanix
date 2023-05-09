@@ -1,5 +1,12 @@
-import math
+import cv2 
 import numpy as np
+import math
+import matplotlib.pyplot as plt
+
+def show_img_matplotlib(img):
+    #use only matplotlib to plot the scale 
+    plt.imshow(img)
+    plt.show()
 
 # class Person:
 #   def __init__(self, name, age):
@@ -135,30 +142,38 @@ import numpy as np
 
 # print(std_R_leaf)
 
-class Person:
-    def __init__(self):
-        self.name = ""
-        self.age = 0
-    def update_name(self, name):
-        self.name = name
-    def update_age(self, age):
-        self.age = age
-    def get_name(self):
-        return self.name
-    def get_age(self):
-        return self.age
+# class Person:
+#     def __init__(self):
+#         self.name = ""
+#         self.age = 0
+#     def update_name(self, name):
+#         self.name = name
+#     def update_age(self, age):
+#         self.age = age
+#     def get_name(self):
+#         return self.name
+#     def get_age(self):
+#         return self.age
 
 
-p1 = Person()
+# p1 = Person()
 
-# same meaning but different code
-print(p1.name)
-print(p1.age)
-print(p1.get_name())
-print(p1.get_age())
+# # same meaning but different code
+# print(p1.name)
+# print(p1.age)
+# print(p1.get_name())
+# print(p1.get_age())
 
-p1.update_name("Kongphop")
-p1.update_age(21)
+# p1.update_name("Kongphop")
+# p1.update_age(21)
 
-print(p1.get_name())
-print(p1.get_age())
+# print(p1.get_name())
+# print(p1.get_age())
+
+# test = cv2.imread("Idea_leaf_white_background.png")
+# position_of_seed = (364,278)
+# cv2.circle(test, position_of_seed, radius=0, color=(0, 0, 0), thickness=100)
+# show_img_matplotlib(test)
+
+store_the_bayesian_pic = np.zeros((5,3))
+print(store_the_bayesian_pic)
