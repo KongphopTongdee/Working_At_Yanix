@@ -217,6 +217,16 @@ StoreNotROIleaf.update_num_of_pixels(not_interestpixels)
 StoreNotROIleaf.update_mean_RGB(all_mean_notleaf)
 StoreNotROIleaf.update_std_RGB(all_std_notleaf)
 
+print("Mean_R_interest,Mean_G_interest,Mean_B_interest")
+print(StoreROIleaf.get_mean_value())
+print("Mean_R_Not_interest,Mean_G_Not_interest,Mean_B_Not_interest")
+print(StoreNotROIleaf.get_mean_value())
+print("Std_R_interest,Std_G_interest,Std_B_interest")
+print(StoreROIleaf.get_std_value())
+print("Std_R_Not_interest,Std_G_Not_interest,Std_B_Not_interest")
+print(StoreNotROIleaf.get_std_value())
+
+
 
 # step 5. สุดท้ายนำไปใส่ในสมการ calculate bayesian probability ที่หา class(leaf)|score(mean,std of R,G,B)
 # Value
@@ -231,9 +241,6 @@ prob_scoreB_given_classleaf = 0.0
 prob_scoreR_given_not_classleaf = 0.0
 prob_scoreG_given_not_classleaf = 0.0
 prob_scoreB_given_not_classleaf = 0.0
-
-
-# ในขั้นตอนนี้เราจะทำการคำนวน prob scoreRGB given class leaf ด้วยการ +(บวก) กันทั้งหมดบนพิกัด i,j ก่อนแล้วค่อยนำมาคำนวนตัว bayesian
 
 # ทำการคำนวน bayesian ของแต่ละ pixels แล้วทำการแทนเข้าไปในภาพ
 # Valiable
