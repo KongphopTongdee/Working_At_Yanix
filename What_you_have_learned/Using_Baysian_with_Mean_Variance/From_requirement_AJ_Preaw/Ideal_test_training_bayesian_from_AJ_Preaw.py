@@ -1,3 +1,5 @@
+# Bayes' definition : https://www.investopedia.com/terms/b/bayes-theorem.asp
+
 import cv2 
 import numpy as np
 import math
@@ -112,10 +114,11 @@ original_Red,original_Green,original_Blue = np.copy(Red),np.copy(Green),np.copy(
 # seed_post = (364,278)
 
 # Step of working
-# 1. ทำการหา region growing เพื่อทำการตั้ง threshold ที่เอาเฉพาะค่าใบไม้มาใช้ โดยถ้าเป็นใบไม้จะให้เป็นสีขาวแต่ถ้าเป็นสิ่งที่ไม่สำคัญจะให้เป็นสีดำ
-# 2. ทำการหา interestsample,notinterestsample จากการนับเฉพาะสีขาวจาก region growing
-# 3. ทำการหา prob_of_score_and_class, prob_of_score_and_notclass โดยการคำนวน equation ที่ผนวกค่า current position, mean, standard deviation
-# 4. สุดท้ายนำไปใส่ในสมการ calculate bayesian probability ที่หา class(leaf)|score(mean,std of Y,Cr,Cb)
+# step 1. ทำการหา region growing เพื่อทำการตั้ง threshold ที่เอาเฉพาะค่าใบไม้มาใช้ โดยถ้าเป็นใบไม้จะให้เป็นสีขาวแต่ถ้าเป็นสิ่งที่ไม่สำคัญจะให้เป็นสีดำ(เนื่องจากว่าการ region growing ที่ง่ายที่สุดจะเป็นภาพขาวดำ)
+# step 2. ทำการหา interestsample,notinterestsample จากการนับเฉพาะสีขาวจาก region growing
+# step 3. ทำการหา prob_of_score_and_class, prob_of_score_and_notclass โดยการคำนวน equation ที่ผนวกค่า current position, mean, standard deviation
+# step 4. นำค่าที่คำนวนออกมาไปเก็บใน class เพื่อดึงมาใช้งานที่ง่ายขึ้น
+# step 5. สุดท้ายนำไปใส่ในสมการ calculate bayesian probability ที่หา class(leaf)|score(mean,std of Y,Cr,Cb)
 
 # step 1. ทำการหา region growing เพื่อทำการตั้ง threshold ที่เอาเฉพาะค่าใบไม้มาใช้ โดยถ้าเป็นใบไม้จะให้เป็นสีขาวแต่ถ้าเป็นสิ่งที่ไม่สำคัญจะให้เป็นสีดำ
 # เนื่องจากว่าการ region growing ที่ง่ายที่สุดจะเป็นภาพขาวดำ
@@ -214,7 +217,7 @@ all_std_notleaf = (std_R_notleaf, std_G_notleaf, std_B_notleaf)
 # print(all_std_notleaf)
 
 # step 4. นำค่าที่คำนวนออกมาไปเก็บใน class เพื่อดึงมาใช้งานที่ง่ายขึ้น
-
+# Create class storage varialble
 StoreROIleaf = statistical_analysis()
 StoreNotROIleaf = statistical_analysis()
 
