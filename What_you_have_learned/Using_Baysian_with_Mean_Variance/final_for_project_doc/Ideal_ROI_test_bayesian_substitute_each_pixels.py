@@ -70,17 +70,17 @@ img_convert_RGB = cv2.cvtColor(img_Idea_ROI_white_background, cv2.COLOR_BGR2RGB)
 Red,Green,Blue = cv2.split(img_convert_RGB)
 original_Red,original_Green,original_Blue = np.copy(Red),np.copy(Green),np.copy(Blue)
 
-# rectangle of meanandvariance
-rectangle_position = [(333,177),(736,307),(668,917),(264,515),(578,549),(805,271),(888,269),(808,331),(821,408),(798,457),(797,535),(733,432),(737,375),(650,372),(645,316)]
-for i in range(len(rectangle_position)):
-    if i <= 4:
-        # mean kernel colour = black
-        rectangle_kernel = calculate_expand_kernel(rectangle_position[i][0],rectangle_position[i][1],25)
-        cv2.rectangle(img_convert_RGB, rectangle_kernel[0], rectangle_kernel[1], (0,0,0), 1)
-    elif i > 4:
-        # variance kernel colour = red
-        rectangle_kernel = calculate_expand_kernel(rectangle_position[i][0],rectangle_position[i][1],25)
-        cv2.rectangle(img_convert_RGB, rectangle_kernel[0], rectangle_kernel[1], (255,0,0), 1)
+# # rectangle of meanandvariance
+# rectangle_position = [(333,177),(736,307),(668,917),(264,515),(578,549),(805,271),(888,269),(808,331),(821,408),(798,457),(797,535),(733,432),(737,375),(650,372),(645,316)]
+# for i in range(len(rectangle_position)):
+#     if i <= 4:
+#         # mean kernel colour = black
+#         rectangle_kernel = calculate_expand_kernel(rectangle_position[i][0],rectangle_position[i][1],25)
+#         cv2.rectangle(img_convert_RGB, rectangle_kernel[0], rectangle_kernel[1], (0,0,0), 1)
+#     elif i > 4:
+#         # variance kernel colour = red
+#         rectangle_kernel = calculate_expand_kernel(rectangle_position[i][0],rectangle_position[i][1],25)
+#         cv2.rectangle(img_convert_RGB, rectangle_kernel[0], rectangle_kernel[1], (255,0,0), 1)
 
 # rectangle of probabilityandBayesian
 # bayesian kernel colour = green        
@@ -104,11 +104,11 @@ show_img_matplotlib(img_convert_RGB)
 # เนื่องจากว่าการ region growing ที่ง่ายที่สุดจะเป็นภาพขาวดำ
 # Valiable
 # coordinates (x,y)
-position_of_seed = (364,278)
+position_of_seed = (578,549)
 # threshold_seed_position = calculate_mean_of_postion(position_of_seed,Red,Green,Blue)
 threshold_seed_position = calculate_mean_of_postion(position_of_seed[0],position_of_seed[1],Red,Green,Blue)
-position_of_start= (328,177)
-position_of_end = (610,750)
+position_of_start= (840,20)
+position_of_end = (629,629)
 
 
 for row in range(position_of_start[1], position_of_end[1]):       # y axis
@@ -117,6 +117,8 @@ for row in range(position_of_start[1], position_of_end[1]):       # y axis
             Red[row][coloumn] = 0
             Green[row][coloumn] = 0
             Blue[row][coloumn] = 0
+
+show_img_matplotlib(merge_picture(Red,Green,Blue))
 
 # step 2. ทำการหา interestsample,notinterestsample จากการนับเฉพาะสีขาวจาก region growing
 # Valiable
