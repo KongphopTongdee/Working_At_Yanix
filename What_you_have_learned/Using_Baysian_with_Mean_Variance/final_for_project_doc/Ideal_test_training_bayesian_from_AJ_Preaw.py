@@ -1,13 +1,53 @@
+# Bayes' definition : https://www.investopedia.com/terms/b/bayes-theorem.asp
+
 import cv2 
 import numpy as np
 import math
 import matplotlib.pyplot as plt
-from Store_analysis_class_ROI import statistical_analysis
 
-def calculate_expand_kernel(seed_position_x,seed_position_y,expand_kernel):
-    Top_Right_position = (seed_position_x+expand_kernel,seed_position_y-expand_kernel)
-    Bottom_Left_position = (seed_position_x-expand_kernel,seed_position_y+expand_kernel)
-    return Top_Right_position,Bottom_Left_position
+# Store all value
+# class statistical_analysis:
+#     def __init__(self, num_of_pixels, mean_value, std_value):
+#         self.num_of_pixels = num_of_pixels
+#         self.mean_value_R,self.mean_value_G,self.mean_value_B = mean_value[0],mean_value[1],mean_value[2]
+#         self.std_value_R,self.std_value_G,self.std_value_B = std_value[0],std_value[1],std_value[2]
+        
+class statistical_analysis:
+    def __init__(self):
+        self.num_of_pixels = 0
+        self.mean_value_R = 0
+        self.mean_value_G = 0
+        self.mean_value_B = 0
+        self.std_value_R = 0
+        self.std_value_G = 0
+        self.std_value_B = 0
+        self.Bayesian_plus_value_R = 0
+        self.Bayesian_plus_value_G = 0
+        self.Bayesian_plus_value_B = 0
+        self.Bayesian_times_value_R = 0
+        self.Bayesian_times_value_G = 0
+        self.Bayesian_times_value_B = 0
+    def update_num_of_pixels(self, num_pixels):
+        self.num_of_pixels = num_pixels
+    def update_mean_RGB(self, mean_value):
+        self.mean_value_R,self.mean_value_G,self.mean_value_B = mean_value[0],mean_value[1],mean_value[2]
+    def update_std_RGB(self, std_value):
+        self.std_value_R,self.std_value_G,self.std_value_B = std_value[0],std_value[1],std_value[2]
+    def update_plus_Bayesian(self, Baye_plus_value):
+        self.Bayesian_plus_value_R,self.Bayesian_plus_value_G,self.Bayesian_plus_value_B = Baye_plus_value[0],Baye_plus_value[1],Baye_plus_value[2]
+    def update_times_Bayesian(self, Baye_times_value):
+        self.Bayesian_times_value_R,self.Bayesian_times_value_G,self.Bayesian_times_value_B = Baye_times_value[0],Baye_times_value[1],Baye_times_value[2]
+    def get_num_of_pixels(self):
+        return self.num_of_pixels
+    def get_mean_value(self):
+        return self.mean_value_R,self.mean_value_G,self.mean_value_B
+    def get_std_value(self):
+        return self.std_value_R,self.std_value_G,self.std_value_B
+    def get_plus_Bayesian_value(self):
+        return self.Bayesian_plus_value_R,self.Bayesian_plus_value_G,self.Bayesian_plus_value_B
+    def get_times_Bayesian_value(self):
+        return self.Bayesian_times_value_R,self.Bayesian_times_value_G,self.Bayesian_times_value_B
+    
 
 def show_img_cv2(img):
     cv2.imshow("test",img)
@@ -59,38 +99,21 @@ def cal_prob_roi(interestsample,notinterestsample,prob_of_score_and_class,prob_o
     
     return Ans
 
-img_Idea_ROI_white_background = cv2.imread("Idea_ROI_white_background.png")
+img_Idea_leaf_white_background = cv2.imread("Idea_ROI_white_background.png")
 
-height, width, channels = img_Idea_ROI_white_background.shape
+height, width, channels = img_Idea_leaf_white_background.shape
 print("height and width of this picture " + "(" + str(height) +","+str(width) +","+str(channels) +")")
 
-img_convert_YCRCB = cv2.cvtColor(img_Idea_ROI_white_background, cv2.COLOR_BGR2YCR_CB)
-img_convert_RGB = cv2.cvtColor(img_Idea_ROI_white_background, cv2.COLOR_BGR2RGB)
+img_convert_YCRCB = cv2.cvtColor(img_Idea_leaf_white_background, cv2.COLOR_BGR2YCR_CB)
+img_convert_RGB = cv2.cvtColor(img_Idea_leaf_white_background, cv2.COLOR_BGR2RGB)
 # Y,Cr,Cb = cv2.split(img_convert_YCRCB)
 Red,Green,Blue = cv2.split(img_convert_RGB)
 original_Red,original_Green,original_Blue = np.copy(Red),np.copy(Green),np.copy(Blue)
 
-# # rectangle of meanandvariance
-# rectangle_position = [(333,177),(736,307),(668,917),(264,515),(578,549),(805,271),(888,269),(808,331),(821,408),(798,457),(797,535),(733,432),(737,375),(650,372),(645,316)]
-# for i in range(len(rectangle_position)):
-#     if i <= 4:
-#         # mean kernel colour = black
-#         rectangle_kernel = calculate_expand_kernel(rectangle_position[i][0],rectangle_position[i][1],25)
-#         cv2.rectangle(img_convert_RGB, rectangle_kernel[0], rectangle_kernel[1], (0,0,0), 1)
-#     elif i > 4:
-#         # variance kernel colour = red
-#         rectangle_kernel = calculate_expand_kernel(rectangle_position[i][0],rectangle_position[i][1],25)
-#         cv2.rectangle(img_convert_RGB, rectangle_kernel[0], rectangle_kernel[1], (255,0,0), 1)
-
-# rectangle of probabilityandBayesian
-# bayesian kernel colour = green        
-cv2.rectangle(img_convert_RGB, (840,20), (629,629), (0,255,0), 1)
-
-show_img_matplotlib(img_convert_RGB)
-
-# cv2.rectangle(img_convert_RGB, (328,177), (610,750), (0,0,255), 1)        # ขนาด pixel ที่จะนำมาใช้
+# cv2.rectangle(img_convert_RGB, (328,177), (547,750), (0,0,255), 1)        # ขนาด pixel ที่จะนำมาใช้
 # seed_post = (364,278)
 # cv2.circle(img_convert_RGB, seed_post, radius=0, color=(0, 0, 0), thickness=10)
+
 
 
 # Step of working
@@ -110,14 +133,13 @@ threshold_seed_position = calculate_mean_of_postion(position_of_seed[0],position
 position_of_start= (840,20)
 position_of_end = (629,629)
 
+
 for row in range(position_of_start[1], position_of_end[1]):       # y axis
     for coloumn in range(position_of_end[0], position_of_start[0]):       # x axis
         if (calculate_mean_of_postion(row,coloumn,Red,Green,Blue) < threshold_seed_position) :
             Red[row][coloumn] = 0
             Green[row][coloumn] = 0
             Blue[row][coloumn] = 0
-
-show_img_matplotlib(merge_picture(Red,Green,Blue))
 
 # step 2. ทำการหา interestsample,notinterestsample จากการนับเฉพาะสีขาวจาก region growing
 # Valiable
@@ -141,8 +163,8 @@ all_std_leaf = (0,0,0)
 std_R_leaf = 0
 std_G_leaf = 0
 std_B_leaf = 0
-
 all_mean_notleaf = (0,0,0)
+
 mean_R_notleaf = 0
 mean_G_notleaf = 0
 mean_B_notleaf = 0
@@ -171,6 +193,9 @@ mean_G_notleaf = (mean_G_notleaf/not_interestpixels)
 mean_B_notleaf = (mean_B_notleaf/not_interestpixels)
 all_mean_notleaf = (mean_R_notleaf, mean_G_notleaf, mean_B_notleaf)
 
+# print(all_mean_leaf)
+# print(all_mean_notleaf)
+
 for row in range(position_of_start[1], position_of_end[1]):       # y axis
     for coloumn in range(position_of_end[0], position_of_start[0]):       # x axis
         if (calculate_mean_of_postion(row,coloumn,Red,Green,Blue) == 0):
@@ -191,6 +216,9 @@ std_G_notleaf = math.sqrt(std_G_notleaf/not_interestpixels)
 std_B_notleaf = math.sqrt(std_B_notleaf/not_interestpixels)
 all_std_notleaf = (std_R_notleaf, std_G_notleaf, std_B_notleaf)
 
+# print(all_std_leaf)
+# print(all_std_notleaf)
+
 # step 4. นำค่าที่คำนวนออกมาไปเก็บใน class เพื่อดึงมาใช้งานที่ง่ายขึ้น
 # Create class storage varialble
 StoreROIleaf = statistical_analysis()
@@ -204,15 +232,16 @@ StoreNotROIleaf.update_num_of_pixels(not_interestpixels)
 StoreNotROIleaf.update_mean_RGB(all_mean_notleaf)
 StoreNotROIleaf.update_std_RGB(all_std_notleaf)
 
-print("Mean_R_interest,Mean_G_interest,Mean_B_interest")
-print(StoreROIleaf.get_mean_value())
-print("Mean_R_Not_interest,Mean_G_Not_interest,Mean_B_Not_interest")
-print(StoreNotROIleaf.get_mean_value())
-print("Std_R_interest,Std_G_interest,Std_B_interest")
-print(StoreROIleaf.get_std_value())
-print("Std_R_Not_interest,Std_G_Not_interest,Std_B_Not_interest")
-print(StoreNotROIleaf.get_std_value())
-
+# print(StoreROIleaf.num_of_pixels)
+# print(StoreROIleaf.mean_value_R)
+# print(StoreROIleaf.mean_value_G)
+# print(StoreROIleaf.mean_value_B)
+# print(StoreROIleaf.std_value_R)
+# print(StoreROIleaf.std_value_G)
+# print(StoreROIleaf.std_value_B)
+# print(StoreROIleaf.get_num_of_pixels())
+# print(StoreROIleaf.get_mean_value())
+# print(StoreROIleaf.get_std_value())
 
 
 # step 5. สุดท้ายนำไปใส่ในสมการ calculate bayesian probability ที่หา class(leaf)|score(mean,std of R,G,B)
@@ -220,34 +249,71 @@ print(StoreNotROIleaf.get_std_value())
 Bayes_prob_classleaf_given_scoreR = 0.0
 Bayes_prob_classleaf_given_scoreG = 0.0
 Bayes_prob_classleaf_given_scoreB = 0.0
+all_bayes_prob_classleaf_given_scoreRGB = (0.0, 0.0, 0.0)
 
 prob_scoreR_given_classleaf = 0.0
 prob_scoreG_given_classleaf = 0.0
 prob_scoreB_given_classleaf = 0.0
-
+all_prob_scoreRGB_given_classleaf = (0.0, 0.0, 0.0)
 prob_scoreR_given_not_classleaf = 0.0
 prob_scoreG_given_not_classleaf = 0.0
 prob_scoreB_given_not_classleaf = 0.0
+all_prob_scoreRGB_given_not_classleaf = (0.0, 0.0, 0.0)
 
-# ทำการคำนวน bayesian ของแต่ละ pixels แล้วทำการแทนเข้าไปในภาพ
-# Valiable
-store_the_bayesian_channel_R = np.zeros((height,width))
-store_the_bayesian_channel_G = np.zeros((height,width))
-store_the_bayesian_channel_B = np.zeros((height,width))
+# ในขั้นตอนนี้เราจะทำการคำนวน prob scoreRGB given class leaf ด้วยการ +(บวก) กันทั้งหมดบนพิกัด i,j ก่อนแล้วค่อยนำมาคำนวนตัว bayesian
 
 for row in range(position_of_start[1], position_of_end[1]):       # y axis
     for coloumn in range(position_of_end[0], position_of_start[0]):       # x axis
-        prob_scoreR_given_classleaf = cal_prob_of_score_and_class(original_Red, row, coloumn, StoreROIleaf.mean_value_R, StoreROIleaf.std_value_R)
-        prob_scoreR_given_not_classleaf = cal_prob_of_score_and_class(original_Red, row, coloumn, StoreNotROIleaf.mean_value_R, StoreNotROIleaf.std_value_R)
-        store_the_bayesian_channel_R[row][coloumn] = cal_prob_roi(StoreROIleaf.get_num_of_pixels(), StoreNotROIleaf.get_num_of_pixels(), prob_scoreR_given_classleaf, prob_scoreR_given_not_classleaf)
-        
-        prob_scoreG_given_classleaf = cal_prob_of_score_and_class(original_Green, row, coloumn, StoreROIleaf.mean_value_G, StoreROIleaf.std_value_G)
-        prob_scoreG_given_not_classleaf = cal_prob_of_score_and_class(original_Green, row, coloumn, StoreNotROIleaf.mean_value_G, StoreNotROIleaf.std_value_G)
-        store_the_bayesian_channel_G[row][coloumn] = cal_prob_roi(StoreROIleaf.get_num_of_pixels(), StoreNotROIleaf.get_num_of_pixels(), prob_scoreG_given_classleaf, prob_scoreG_given_not_classleaf)
-        
-        prob_scoreB_given_classleaf = cal_prob_of_score_and_class(original_Green, row, coloumn, StoreROIleaf.mean_value_B, StoreROIleaf.std_value_B)
-        prob_scoreB_given_not_classleaf = cal_prob_of_score_and_class(original_Green, row, coloumn, StoreNotROIleaf.mean_value_B, StoreNotROIleaf.std_value_B)
-        store_the_bayesian_channel_B[row][coloumn] = cal_prob_roi(StoreROIleaf.get_num_of_pixels(), StoreNotROIleaf.get_num_of_pixels(), prob_scoreB_given_classleaf, prob_scoreB_given_not_classleaf)
+        if (calculate_mean_of_postion(row,coloumn,Red,Green,Blue) == 0):
+            prob_scoreR_given_classleaf += cal_prob_of_score_and_class(original_Red, row, coloumn, StoreROIleaf.mean_value_R, StoreROIleaf.std_value_R)
+            prob_scoreG_given_classleaf += cal_prob_of_score_and_class(original_Green, row, coloumn, StoreROIleaf.mean_value_G, StoreROIleaf.std_value_G) 
+            prob_scoreB_given_classleaf += cal_prob_of_score_and_class(original_Blue, row, coloumn, StoreROIleaf.mean_value_B, StoreROIleaf.std_value_B)
+        else :
+            prob_scoreR_given_not_classleaf += cal_prob_of_score_and_class(original_Red, row, coloumn, StoreNotROIleaf.mean_value_R, StoreNotROIleaf.std_value_R)
+            prob_scoreG_given_not_classleaf += cal_prob_of_score_and_class(original_Green, row, coloumn, StoreNotROIleaf.mean_value_G, StoreNotROIleaf.std_value_G)
+            prob_scoreB_given_not_classleaf += cal_prob_of_score_and_class(original_Green, row, coloumn, StoreNotROIleaf.mean_value_B, StoreNotROIleaf.std_value_B)
+ 
+#print(prob_scoreR_given_classleaf)
+#print(prob_scoreG_given_classleaf)
+#print(prob_scoreB_given_classleaf)
+       
+Bayes_prob_classleaf_given_scoreR = cal_prob_roi(StoreROIleaf.get_num_of_pixels(), StoreNotROIleaf.get_num_of_pixels(), prob_scoreR_given_classleaf, prob_scoreR_given_not_classleaf)
+Bayes_prob_classleaf_given_scoreG = cal_prob_roi(StoreROIleaf.get_num_of_pixels(), StoreNotROIleaf.get_num_of_pixels(), prob_scoreG_given_classleaf, prob_scoreG_given_not_classleaf)
+Bayes_prob_classleaf_given_scoreB = cal_prob_roi(StoreROIleaf.get_num_of_pixels(), StoreNotROIleaf.get_num_of_pixels(), prob_scoreB_given_classleaf, prob_scoreB_given_not_classleaf)
+all_bayes_prob_classleaf_given_scoreRGB = (Bayes_prob_classleaf_given_scoreR, Bayes_prob_classleaf_given_scoreG, Bayes_prob_classleaf_given_scoreB)
+StoreROIleaf.update_plus_Bayesian(all_bayes_prob_classleaf_given_scoreRGB)
+print(StoreROIleaf.get_plus_Bayesian_value())
 
-image_bayesian = merge_picture(store_the_bayesian_channel_R, store_the_bayesian_channel_G, store_the_bayesian_channel_B)
-show_img_cv2(image_bayesian)
+# ในขั้นตอนนี้เราจะทำการคำนวน prob scoreRGB given class leaf ด้วยการ x(คูณ) กันทั้งหมดบนพิกัด i,j ก่อนแล้วค่อยนำมาคำนวนตัว bayesian (เนื่องจากพอนำค่ามาคูณกันจะทำให้ค่าเข้าใกล้ 0 จนไม่สามารถคำนวน bayesian ได้เลย)
+
+# # reset value
+# prob_scoreR_given_classleaf = 0.0
+# prob_scoreG_given_classleaf = 0.0 
+# prob_scoreB_given_classleaf = 0.0 
+# prob_scoreR_given_not_classleaf = 0.0
+# prob_scoreG_given_not_classleaf = 0.0 
+# prob_scoreB_given_not_classleaf = 0.0
+
+# for row in range(position_of_start[1], position_of_end[1]):       # y axis
+#     for coloumn in range(position_of_start[0], position_of_end[0]):       # x axis
+#         if (calculate_mean_of_postion(row,coloumn,Red,Green,Blue) == 0):
+#             prob_scoreR_given_classleaf *= cal_prob_of_score_and_class(original_Red, row, coloumn, StoreROIleaf.mean_value_R, StoreROIleaf.std_value_R)
+#             prob_scoreG_given_classleaf *= cal_prob_of_score_and_class(original_Green, row, coloumn, StoreROIleaf.mean_value_G, StoreROIleaf.std_value_G) 
+#             prob_scoreB_given_classleaf *= cal_prob_of_score_and_class(original_Blue, row, coloumn, StoreROIleaf.mean_value_B, StoreROIleaf.std_value_B)
+#         else :
+#             prob_scoreR_given_not_classleaf *= cal_prob_of_score_and_class(original_Red, row, coloumn, StoreNotROIleaf.mean_value_R, StoreNotROIleaf.std_value_R)
+#             prob_scoreG_given_not_classleaf *= cal_prob_of_score_and_class(original_Green, row, coloumn, StoreNotROIleaf.mean_value_G, StoreNotROIleaf.std_value_G)
+#             prob_scoreB_given_not_classleaf *= cal_prob_of_score_and_class(original_Green, row, coloumn, StoreNotROIleaf.mean_value_B, StoreNotROIleaf.std_value_B)
+   
+# Bayes_prob_classleaf_given_scoreR = cal_prob_roi(StoreROIleaf.get_num_of_pixels(), StoreNotROIleaf.get_num_of_pixels(), prob_scoreR_given_classleaf, prob_scoreR_given_not_classleaf)
+# Bayes_prob_classleaf_given_scoreG = cal_prob_roi(StoreROIleaf.get_num_of_pixels(), StoreNotROIleaf.get_num_of_pixels(), prob_scoreG_given_classleaf, prob_scoreG_given_not_classleaf)
+# Bayes_prob_classleaf_given_scoreB = cal_prob_roi(StoreROIleaf.get_num_of_pixels(), StoreNotROIleaf.get_num_of_pixels(), prob_scoreB_given_classleaf, prob_scoreB_given_not_classleaf)
+# all_bayes_prob_classleaf_given_scoreRGB = (Bayes_prob_classleaf_given_scoreR, Bayes_prob_classleaf_given_scoreG, Bayes_prob_classleaf_given_scoreB)
+# StoreROIleaf.update_times_Bayesian(all_bayes_prob_classleaf_given_scoreRGB)
+# print(StoreROIleaf.get_times_Bayesian_value())
+
+# print(StoreROIleaf.get_num_of_pixels())
+# print(StoreROIleaf.get_mean_value())
+# print(StoreROIleaf.get_std_value())
+# print(StoreROIleaf.get_plus_Bayesian_value())
+# print(StoreNotROIleaf.get_num_of_pixels())
