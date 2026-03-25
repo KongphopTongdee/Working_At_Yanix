@@ -1,0 +1,128 @@
+[
+    {
+        "category": "train",
+        "ellipseParam": [
+            [
+                807,
+                177
+            ],
+            14,
+            7,
+            25
+        ],
+        "startFrame": 0,
+        "nCluster": 1
+    },
+    {
+        "category": "classic-car",
+        "ellipseParam": [
+            [
+                100,
+                45
+            ],
+            40,
+            20,
+            10
+        ],
+        "startFrame": 6,
+        "nCluster": 2
+    },
+    {
+        "category": "motorbike",
+        "ellipseParam": [
+            [
+                750,
+                350
+            ],
+            100,
+            50,
+            90
+        ],
+        "startFrame": 8,
+        "nCluster": 4
+    },
+    {
+        "category": "parkour",
+        "ellipseParam": [
+            [
+                655,
+                255
+            ],
+            30,
+            15,
+            90
+        ],
+        "startFrame": 0,
+        "nCluster": 3
+    },
+    {
+        "category": "parkour",
+        "ellipseParam": [
+            [
+                330,
+                136
+            ],
+            30,
+            15,
+            0
+        ],
+        "startFrame": 0,
+        "nCluster": 1
+    },
+    {
+        "category": "hockey",
+        "ellipseParam": [
+            [
+                315,
+                120
+            ],
+            50,
+            30,
+            0
+        ],
+        "startFrame": 0,
+        "nCluster": 1
+    },
+    {
+        "category": "hockey",
+        "ellipseParam": [
+            [
+                315,
+                120
+            ],
+            50,
+            30,
+            0
+        ],
+        "startFrame": 0,
+        "nCluster": 1
+    },
+    {
+        "category": "zz_light_variation_1",
+        "ellipseParam": [
+            [
+                643,
+                1095
+            ],
+            160,
+            80,
+            170
+        ],
+        "startFrame": 56,
+        "nCluster": 5
+    },
+    {
+        "category": "zz_light_variation_2",
+        "ellipseParam": [
+            [
+                735,
+                1438
+            ],
+            60,
+            40,
+            170
+        ],
+        "startFrame": 16,
+        "nCluster": 2
+    }
+]
